@@ -16,6 +16,7 @@ import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
 import { useSearchParams, useRouter, usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
+import { useAuthActions } from "@convex-dev/auth/react";
 
 type TAuthFormSubmit = {
   handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
@@ -24,8 +25,8 @@ type TAuthFormSubmit = {
 export const SignUp = ({ handleSubmit }: TAuthFormSubmit) => {
   return (
     <form onSubmit={handleSubmit} className="space-y-4 pt-4 w-full">
-      <div className="grid grid-cols-2 gap-4">
-        <div className="space-y-2">
+      {/* <div className="grid grid-cols-2 gap-4">
+      <div className="space-y-2">
           <Label htmlFor="first-name">First name</Label>
           <Input name="first-name" id="first-name" required />
         </div>
@@ -33,7 +34,7 @@ export const SignUp = ({ handleSubmit }: TAuthFormSubmit) => {
           <Label htmlFor="last-name">Last name</Label>
           <Input name="last-name" id="last-name" required />
         </div>
-      </div>
+      </div> */}
       <div className="space-y-2">
         <Label htmlFor="email">Email</Label>
         <Input
@@ -49,15 +50,15 @@ export const SignUp = ({ handleSubmit }: TAuthFormSubmit) => {
         <Input name="password" id="password" type="password" required />
       </div>
       <div className="space-y-2">
-        <Label htmlFor="confirm-password">Confirm Password</Label>
+        {/* <Label htmlFor="confirm-password">Confirm Password</Label>
         <Input
           name="confirm-password"
           id="confirm-password"
           type="password"
           required
-        />
-        <Input name="flow" id="flow" type="hidden" value="signUp" />
+        /> */}
       </div>
+      <Input name="flow" id="flow" type="hidden" value="signUp" />
       <Button type="submit" className="w-full">
         Create Account
       </Button>
@@ -102,6 +103,8 @@ export default function Login() {
 
   const [currentTab, setCurrentTab] = useState("login");
 
+  const { signIn } = useAuthActions();
+
   useEffect(() => {
     if (searchParams.get("register") === "true") {
       setCurrentTab("register");
@@ -119,13 +122,19 @@ export default function Login() {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log("submitting");
     const formData = new FormData(e.currentTarget);
+
     for (const [key, value] of formData.entries()) {
-      console.log(`${key}: ${value}`);
+      console.log(key, value);
     }
 
-    console.log(e.currentTarget);
+    void signIn("password", formData)
+      .then(() => {
+        router.push("/dashboard"); // or wherever your logged-in page is
+      })
+      .catch((err) => {
+        console.error("Auth error:", err);
+      });
   };
 
   return (
