@@ -11,7 +11,7 @@ export const LandingNav = () => {
         </div>
         <nav className="hidden md:flex gap-6"></nav>
         <div className="flex items-end gap-4">
-          <ThemeToggle />
+          <ThemeToggle useIconsOnly={true} />
           <Link href="/login">
             <Button variant="outline">Login</Button>
           </Link>
