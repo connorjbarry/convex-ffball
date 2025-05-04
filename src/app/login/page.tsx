@@ -100,7 +100,7 @@ export const SignIn = ({ handleSubmit, isLoading }: TAuthFormSubmit) => {
   );
 };
 
-export default function Login() {
+export default function LoginPage() {
   const searchParams = useSearchParams();
   const router = useRouter();
   const pathname = usePathname();
@@ -129,10 +129,6 @@ export default function Login() {
     e.preventDefault();
     setIsLoading(true);
     const formData = new FormData(e.currentTarget);
-
-    for (const [key, value] of formData.entries()) {
-      console.log(key, value);
-    }
 
     void signIn("password", formData)
       .then(() => {

@@ -51,7 +51,7 @@ export default function UserSidebar() {
       <Sidebar className="hidden md:flex">
         <SidebarHeader className="border-b">
           <div className="flex items-center gap-2 px-2 py-3">
-            <span className="font-bold text-lg">FantasyPro</span>
+            <span className="font-bold text-lg">TBD</span>
           </div>
         </SidebarHeader>
         <SidebarContent>
