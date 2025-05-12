@@ -24,7 +24,7 @@ export default function Leagues() {
 
   return (
     <div className="flex flex-col gap-2">
-      {leagues?.map((league) => <LeagueRow league={league} />)}
+      {leagues?.map((league) => <LeagueRow key={league._id} league={league} />)}
     </div>
   );
 }
